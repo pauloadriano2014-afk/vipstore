@@ -1,5 +1,5 @@
 <div class="page-width" style="padding: 60px 20px; max-width: 1200px; margin: 0 auto;">
-  <h1 style="text-align: center; text-transform: uppercase; margin-bottom: 40px; border-bottom: 2px solid #FF1493; display: inline-block; padding-bottom: 5px;">
+  <h1 style="text-align: center; text-transform: uppercase; margin-bottom: 40px; border-bottom: 2px solid #D4AF37; display: inline-block; padding-bottom: 5px;">
     Seu Carrinho
   </h1>
 
@@ -24,7 +24,7 @@
                 {% unless item.product.has_only_default_variant %}
                   <p style="color: #666; margin: 5px 0; font-size: 0.9rem;">Opção: {{ item.variant.title }}</p>
                 {% endunless %}
-                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" style="color: #FF1493; font-size: 0.8rem; text-decoration: underline; margin-top: 5px; display: block;">Remover</a>
+                <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" style="color: #D4AF37; font-size: 0.8rem; text-decoration: underline; margin-top: 5px; display: block;">Remover</a>
               </div>
             </div>
 
@@ -41,7 +41,7 @@
 
       <div style="margin-top: 40px; text-align: right;">
         <h3 style="margin-bottom: 20px; text-transform: uppercase;">
-          Subtotal: <span style="color: #FF1493; font-size: 1.5rem;">{{ cart.total_price | money }}</span>
+          Subtotal: <span style="color: #D4AF37; font-size: 1.5rem;">{{ cart.total_price | money }}</span>
         </h3>
         <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">Taxas e frete calculados no checkout.</p>
         
@@ -49,7 +49,7 @@
           Atualizar
         </button>
         
-        <button type="submit" name="checkout" style="background: #FF1493; color: #fff; padding: 15px 40px; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase;">
+        <button type="submit" name="checkout" style="background: #D4AF37; color: #fff; padding: 15px 40px; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase;">
           Finalizar Compra
         </button>
       </div>
@@ -57,7 +57,7 @@
   {% else %}
     <div style="text-align: center; padding: 80px 0;">
       <p style="font-size: 1.2rem; color: #666; margin-bottom: 30px;">Seu carrinho está vazio.</p>
-      <a href="/collections/all" style="background: #FF1493; color: #fff; padding: 15px 40px; text-decoration: none; border-radius: 4px; font-weight: bold; text-transform: uppercase;">
+      <a href="/collections/all" style="background: #D4AF37; color: #fff; padding: 15px 40px; text-decoration: none; border-radius: 4px; font-weight: bold; text-transform: uppercase;">
         Continuar Comprando
       </a>
     </div>
