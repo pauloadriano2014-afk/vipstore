@@ -9,7 +9,7 @@
     font-family: sans-serif;
   }
 
-  /* Galeria de Fotos */
+  /* --- GALERIA INTELIGENTE --- */
   .prod-gallery {
     flex: 1;
     min-width: 300px;
@@ -17,11 +17,26 @@
     flex-direction: column;
     gap: 15px;
   }
+  
+  /* Estilo para Fotos */
   .prod-gallery img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     object-fit: cover;
+  }
+
+  /* Estilo para Vídeos (MP4 e YouTube) */
+  .prod-gallery video, 
+  .prod-gallery iframe {
+    width: 100%;
+    height: auto;
+    /* MUDANÇA AQUI: Formato Vertical (Retrato) */
+    aspect-ratio: 9 / 16; 
+    border-radius: 8px;
+    border: 1px solid #333; 
+    background: #000;
+    object-fit: cover; /* Garante que o vídeo preencha o espaço sem esticar */
   }
 
   /* Informações do Produto */
@@ -35,21 +50,23 @@
 
   .prod-title {
     font-size: 28px;
-    font-weight: bold;
+    font-weight: 800; 
     margin-bottom: 10px;
     text-transform: uppercase;
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .prod-price {
-    font-size: 24px;
-    color: #D4AF37; /* Preço Rosa */
+    font-size: 28px;
     margin-bottom: 5px;
-    font-weight: 700;
+    font-weight: 800;
   }
 
   .prod-installments {
     font-size: 14px;
-    color: #666;
+    color: #ccc; 
     margin-bottom: 25px;
   }
 
@@ -63,20 +80,20 @@
     display: block;
     text-transform: uppercase;
     font-size: 0.9rem;
+    color: #fff;
   }
   .variant-options {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
   }
-  /* Esconde a bolinha do rádio padrão */
   .variant-options input[type="radio"] {
     display: none;
   }
-  /* Estilo do botão de tamanho */
+  
   .variant-options label {
     padding: 10px 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     cursor: pointer;
     font-weight: bold;
     text-transform: uppercase;
@@ -84,41 +101,50 @@
     transition: 0.3s;
     min-width: 50px;
     text-align: center;
+    color: #fff;
+    background: #111;
   }
   
-  /* Quando selecionado (Checked) */
-  .variant-options input[type="radio"]:checked + label {
-    background-color: #D4AF37;
-    color: #fff;
+  .variant-options label:hover {
     border-color: #D4AF37;
+  }
+  
+  .variant-options input[type="radio"]:checked + label {
+    background: linear-gradient(to right, #AA771C, #B38728);
+    color: #fff;
+    border-color: #FFD700;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
   }
 
   /* Botões de Ação */
   .btn-add-cart {
-    background-color: #000;
+    background-image: linear-gradient(to right, #AA771C 0%, #B38728 51%, #AA771C 100%);
     color: #fff;
     width: 100%;
     padding: 18px;
-    border: none;
+    border: 1px solid #FCF6BA;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 800;
     text-transform: uppercase;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.5s;
     margin-bottom: 10px;
     border-radius: 5px;
+    box-shadow: 0 0 10px rgba(179, 135, 40, 0.2);
   }
   .btn-add-cart:hover {
-    background-color: #333;
+    background-position: right center;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
   }
 
   /* Acordeão (Abas) */
   .accordion {
     margin-top: 30px;
-    border-top: 1px solid #e1e1e1;
+    border-top: 1px solid #333;
   }
   .accordion details {
-    border-bottom: 1px solid #e1e1e1;
+    border-bottom: 1px solid #333;
     padding: 15px 0;
   }
   .accordion summary {
@@ -128,6 +154,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #fff; 
   }
   .accordion summary::after {
     content: '+';
@@ -139,7 +166,7 @@
   }
   .accordion-content {
     margin-top: 10px;
-    color: #555;
+    color: #ccc; 
     line-height: 1.6;
     font-size: 14px;
   }
@@ -150,16 +177,32 @@
 </style>
 
 <div class="prod-container">
+  
   <div class="prod-gallery">
     {% for media in product.media %}
-      <img src="{{ media | img_url: '800x' }}" alt="{{ product.title }}">
+      {% case media.media_type %}
+        {% when 'image' %}
+          <img src="{{ media | img_url: '1000x' }}" alt="{{ media.alt | escape }}">
+        
+        {% when 'external_video' %}
+          <iframe
+            src="https://www.youtube.com/embed/{{ media.external_id }}?autoplay=1&mute=1&loop=1&playlist={{ media.external_id }}&controls=0&rel=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            style="aspect-ratio: 9 / 16;"> </iframe>
+
+        {% when 'video' %}
+          {{ media | video_tag: controls: true, autoplay: true, loop: true, muted: true, image_size: "1000x", style: "aspect-ratio: 9/16; object-fit: cover;" }}
+      
+      {% endcase %}
     {% endfor %}
   </div>
 
   <div class="prod-info">
     <h1 class="prod-title">{{ product.title }}</h1>
     
-    <div class="prod-price">
+    <div class="product-price prod-price"> 
       {{ product.price | money }}
     </div>
     
@@ -196,7 +239,9 @@
         Adicionar ao Carrinho
       </button>
       
-      {{ form | payment_button }}
+      <div style="margin-top: 10px;">
+        {{ form | payment_button }}
+      </div>
       
     {% endform %}
 
@@ -208,16 +253,10 @@
         </div>
       </details>
       
-      {% comment %} 
-        LÓGICA INTELIGENTE:
-        Só mostra a tabela de medidas se o produto NÃO for:
-        Rasteirinha, Acessório, Cinto, Meia, Boné ou Bolsa.
-      {% endcomment %}
-      
       {% assign show_size_chart = true %}
       {% for tag in product.tags %}
         {% assign t = tag | downcase %}
-        {% if t contains 'rasteirinha' or t contains 'acessorio' or t contains 'cinto' or t contains 'meia' or t contains 'bone' or t contains 'bolsa' %}
+        {% if t contains 'rasteirinha' or t contains 'acessorio' or t contains 'cinto' or t contains 'meia' or t contains 'bone' or t contains 'bolsa' or t contains 'perfume' %}
           {% assign show_size_chart = false %}
         {% endif %}
       {% endfor %}
@@ -245,8 +284,8 @@
 
 {% schema %}
 {
-  "name": "Produto Fitness Pro",
+  "name": "Produto VIP Pro",
   "settings": [],
-  "presets": [{ "name": "Produto Fitness Pro" }]
+  "presets": [{ "name": "Produto VIP Pro" }]
 }
 {% endschema %}

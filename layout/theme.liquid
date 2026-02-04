@@ -24,6 +24,82 @@
     {% render 'meta-tags' %}
 
     {{ content_for_header }}
+
+    <style>
+      /* --- ESTILOS GERAIS (CARREGAM NO INÍCIO) --- */
+      
+      /* 1. Definir o Degradê de Ouro Rico */
+      :root {
+        --gold-gradient: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+        --gold-solid-bright: #FFD700; 
+      }
+
+      /* 2. Texto com Brilho */
+      .product-price, 
+      .collection-title, 
+      .section-heading,
+      h1, h2, h3 {
+        background: var(--gold-gradient);
+        background-size: 200% auto;
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent; 
+        background-clip: text;
+        text-fill-color: transparent;
+        font-weight: 800 !important; 
+        animation: shine 6s linear infinite; 
+      }
+
+      /* 3. Botões de Luxo (Estado Normal) */
+      button, .btn, .shopify-payment-button__button, .cart-checkout-button {
+        background-image: linear-gradient(to right, #AA771C 0%, #B38728 51%, #AA771C 100%) !important;
+        background-color: transparent !important;
+        color: #fff !important; 
+        border: 1px solid #FCF6BA !important; 
+        text-transform: uppercase;
+        transition: 0.5s;
+        background-size: 200% auto !important;
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3) !important; 
+        border-radius: 4px; 
+      }
+
+      /* 4. Bordas e Linhas */
+      .site-header-bg {
+        border-bottom: 1px solid var(--gold-solid-bright) !important;
+        box-shadow: 0 2px 10px rgba(255, 215, 0, 0.1);
+      }
+      
+      .footer-global-wrapper {
+        border-top: 4px solid var(--gold-solid-bright) !important;
+      }
+      
+      hr {
+        border-color: var(--gold-solid-bright) !important;
+        opacity: 0.5;
+      }
+
+      @keyframes shine {
+        to { background-position: 200% center; }
+      }
+
+      /* --- CORREÇÕES DE TEXTO COMUM --- */
+      .nav-link, .mobile-link, .footer-column a, p, .rte {
+        background: none !important;
+        -webkit-text-fill-color: initial !important; 
+        color: #fff; 
+      }
+      
+      .nav-link:hover, .footer-column a:hover {
+        color: #FFD700 !important;
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+        text-decoration: none !important;
+      }
+
+      body {
+        background-color: #000 !important;
+        color: #fff !important;
+      }
+    </style>
+
   </head>
 
   <body>
@@ -32,5 +108,42 @@
     {{ content_for_layout }}
 
     {% sections 'footer-group' %}
+
+    <style>
+      /* 1. O Botão em Si */
+      html body .banner__buttons a:hover,
+      html body .button:hover,
+      html body .btn:hover,
+      html body a.button:hover,
+      html body .shopify-payment-button__button:hover {
+        background: linear-gradient(to right, #AA771C, #B38728) !important;
+        background-color: #B38728 !important;
+        color: #FFFFFF !important;
+        border-color: #FFD700 !important;
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.8) !important;
+        opacity: 1 !important;
+      }
+
+      /* 2. MATANDO O FANTASMA (AQUI ESTÁ O SEGREDO) */
+      /* Remove qualquer efeito 'fill' ou 'box-shadow' que o tema desenha por cima */
+      html body .banner__buttons a:hover::after,
+      html body .button:hover::after,
+      html body .btn:hover::after,
+      html body .banner__buttons a:hover::before,
+      html body .button:hover::before,
+      html body .btn:hover::before {
+        display: none !important;
+        content: none !important;
+        background: none !important;
+        box-shadow: none !important;
+      }
+      
+      /* 3. Garante texto branco */
+      html body .button:hover span, 
+      html body .banner__buttons a:hover span {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+      }
+    </style>
   </body>
 </html>

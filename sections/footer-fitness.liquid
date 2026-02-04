@@ -3,57 +3,58 @@
   .footer-global-wrapper {
     background-color: #000;
     color: #fff;
-    width: 100vw; /* Largura total da tela */
+    width: 100vw; 
     position: relative;
     left: 50%;
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
-    border-top: 4px solid #D4AF37; /* Linha Rosa */
+    border-top: 4px solid #FFD700; 
     margin-top: 60px;
     padding: 60px 0 30px;
-    box-sizing: border-box; /* Garante que o padding não estoure a tela */
+    box-sizing: border-box;
   }
 
-  /* Onde o conteúdo fica (Centralizado e limitado a 1200px) */
   .footer-content-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: space-between; /* Espalha as colunas no PC */
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 40px;
   }
 
-  /* Colunas Individuais */
   .footer-column {
     flex: 1;
     min-width: 250px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Alinha à esquerda no PC */
+    align-items: flex-start;
   }
 
-  /* Títulos */
+  /* Títulos Dourados */
   .footer-column h3 {
-    color: #D4AF37;
+    color: #FFD700;
     font-size: 18px;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 800;
     margin-bottom: 20px;
     letter-spacing: 1px;
+    background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
-  /* Textos e Links */
   .footer-column p {
     color: #ccc;
     font-size: 14px;
     line-height: 1.6;
     margin-bottom: 15px;
-    max-width: 300px; /* Evita linhas muito longas */
+    max-width: 300px;
   }
 
+  /* Links Comuns */
   .footer-column a {
     color: #ccc;
     text-decoration: none;
@@ -62,32 +63,46 @@
     transition: 0.3s;
     display: block;
   }
-  .footer-column a:hover { color: #D4AF37; padding-left: 5px; }
+  .footer-column a:hover { 
+    color: #FFD700; 
+    padding-left: 5px; 
+    text-shadow: 0 0 5px #B38728;
+  }
 
-  /* Botão WhatsApp */
-  .btn-whatsapp {
-    background: #25D366;
-    color: #fff !important;
-    padding: 12px 25px;
-    border-radius: 50px;
-    font-weight: bold;
+  /* --- A CORREÇÃO DO BOTÃO ESTÁ AQUI --- */
+  /* Usamos o seletor completo para vencer a regra global */
+  .footer-column a.btn-whatsapp {
+    background: linear-gradient(to right, #AA771C 0%, #B38728 51%, #AA771C 100%) !important;
+    background-color: #B38728 !important; /* Fallback */
+    color: #000 !important; /* Texto PRETO (Visível) */
+    -webkit-text-fill-color: #000 !important; /* Garante preto */
+    
+    padding: 15px 30px;
+    border-radius: 4px;
+    font-weight: 800 !important;
+    text-transform: uppercase;
     text-decoration: none !important;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+    box-shadow: 0 0 15px rgba(179, 135, 40, 0.4) !important;
     margin-top: 10px;
+    border: 1px solid #FCF6BA !important;
+    width: auto;
+    opacity: 1 !important;
   }
-  .btn-whatsapp:hover {
-    background: #1ebc57;
+  
+  .footer-column a.btn-whatsapp:hover {
     transform: scale(1.05);
-    padding-left: 25px; /* Anula efeito de link normal */
+    background-position: right center !important;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6) !important;
+    color: #000 !important;
   }
 
-  /* Direitos Autorais */
   .footer-copyright {
     text-align: center;
-    border-top: 1px solid #222;
+    border-top: 1px solid #333;
     margin-top: 50px;
     padding-top: 20px;
     font-size: 12px;
@@ -95,26 +110,17 @@
   }
   .footer-copyright strong { color: #fff; }
 
-  /* --- MÁGICA PARA CELULAR (Responsividade) --- */
   @media (max-width: 768px) {
     .footer-content-container {
-      flex-direction: column; /* Empilha as colunas */
-      align-items: center;    /* Centraliza os blocos */
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       gap: 50px;
-      padding: 0 30px; /* Margem segura para não colar na borda */
     }
-
-    .footer-column {
-      align-items: center; /* Centraliza itens dentro da coluna */
-      text-align: center;  /* Centraliza o texto */
-      width: 100%;
-    }
-
+    .footer-column { align-items: center; width: 100%; }
     .footer-column p { max-width: 100%; }
-    
-    .footer-column a:hover { padding-left: 0; color: #D4AF37; } /* Tira o efeito de mover no celular */
-    
-    .btn-whatsapp { width: 100%; justify-content: center; } /* Botão largura total */
+    .footer-column a:hover { padding-left: 0; }
+    .btn-whatsapp { width: 100%; max-width: 350px; } 
   }
 </style>
 
@@ -122,38 +128,43 @@
   <div class="footer-content-container">
     
     <div class="footer-column">
-      <h3>Menina Chique</h3>
-      <p>Moda fitness premium em Mafra - SC.<br>Sua melhor versão começa aqui.</p>
+      <h3>VIP STORE</h3>
+      <p>
+        Referência em moda premium masculina e feminina.<br>
+        O melhor das grandes marcas: roupas, calçados, tênis e perfumes importados.
+      </p>
     </div>
 
     <div class="footer-column">
-      <h3>Atendimento</h3>
-      <p>Precisa de ajuda com o tamanho?</p>
+      <h3>Atendimento VIP</h3>
+      <p>Dúvidas sobre marcas ou tamanhos? Fale com nosso personal shopper.</p>
+      
       <a href="https://wa.me/5547999999999" target="_blank" class="btn-whatsapp">
-        <span>📱</span> Chamar no WhatsApp
+        <span style="font-size: 20px;">📱</span> FALAR NO WHATSAPP
       </a>
     </div>
 
     <div class="footer-column">
-      <h3>Links Rápidos</h3>
+      <h3>Navegação</h3>
       <a href="/">Início</a>
-      <a href="/collections/all">Todos os Produtos</a>
+      <a href="/collections/all">Coleção Completa</a>
+      <a href="/collections/masculino">Moda Masculina</a>
+      <a href="/collections/feminino">Moda Feminina</a>
       <a href="/search">Rastrear Pedido</a>
-      <a href="/policies/privacy-policy">Política de Privacidade</a>
     </div>
 
   </div>
 
   <div class="footer-copyright">
-    &copy; {{ 'now' | date: "%Y" }} <strong>Menina Chique Mafra</strong>. Todos os direitos reservados.<br>
-    Desenvolvido por Paulo Adriano.
+    &copy; {{ 'now' | date: "%Y" }} <strong>VIP STORE</strong>. Todos os direitos reservados.<br>
+    Mafra - SC
   </div>
 </footer>
 
 {% schema %}
 {
-  "name": "Rodapé Oficial V2",
+  "name": "Rodapé VIP Store",
   "settings": [],
-  "presets": [{ "name": "Rodapé Oficial V2" }]
+  "presets": [{ "name": "Rodapé VIP Store" }]
 }
 {% endschema %}

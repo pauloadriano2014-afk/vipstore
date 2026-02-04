@@ -1,27 +1,27 @@
 <style>
   .social-proof-section {
     padding: 60px 0;
-    background-color: #fff;
+    background-color: #000000; /* Fundo PRETO */
     text-align: center;
   }
-  
+   
   .section-title {
     text-transform: uppercase;
     font-size: 1.8rem;
     font-weight: 800;
-    color: #000;
+    color: #ffffff; /* Texto BRANCO */
     margin-bottom: 10px;
     letter-spacing: 1px;
   }
-  
+   
   .section-subtitle {
-    color: #666;
+    color: #cccccc; /* Cinza claro */
     margin-bottom: 40px;
     font-size: 1rem;
   }
-  
+   
   .section-title span {
-    color: #D4AF37; /* Rosa Neon */
+    color: #D4AF37; /* Dourado VIP */
     border-bottom: 2px solid #D4AF37;
   }
 
@@ -39,12 +39,14 @@
     overflow: hidden;
     border-radius: 8px;
     aspect-ratio: 1 / 1; /* Quadrado perfeito estilo Insta */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5); /* Sombra mais escura */
     transition: transform 0.3s ease;
+    border: 1px solid #333; /* Borda sutil escura */
   }
 
   .gallery-item:hover {
     transform: translateY(-5px);
+    border-color: #D4AF37; /* Borda dourada ao passar o mouse */
   }
 
   .gallery-img {
@@ -53,7 +55,7 @@
     object-fit: cover;
     transition: transform 0.5s ease;
   }
-  
+   
   .gallery-item:hover .gallery-img {
     transform: scale(1.1); /* Zoom suave ao passar o mouse */
   }
@@ -62,21 +64,21 @@
   .insta-overlay {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.6); /* Fundo mais escuro */
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
   }
-  
+   
   .gallery-item:hover .insta-overlay {
     opacity: 1;
   }
-  
+   
   .insta-icon {
     font-size: 2rem;
-    color: #fff;
+    color: #D4AF37; /* Ícone Dourado */
   }
 
   /* Mobile: 2 colunas */
@@ -89,27 +91,27 @@
 </style>
 
 <div class="social-proof-section">
-  <h2 class="section-title">Quem usa <span>Menina Chique</span></h2>
-  <p class="section-subtitle">Confira nossos looks em clientes reais</p>
-  
+  <h2 class="section-title">QUEM VESTE <span>VIP STORE</span></h2>
+  <p class="section-subtitle">Confira o estilo de clientes reais</p>
+   
   <div class="gallery-grid">
     {% for block in section.blocks %}
       <div class="gallery-item">
         {% if block.settings.image != blank %}
-          <img src="{{ block.settings.image | img_url: '600x600', crop: 'center' }}" alt="Cliente Menina Chique" class="gallery-img">
+          <img src="{{ block.settings.image | img_url: '600x600', crop: 'center' }}" alt="Cliente VIP STORE" class="gallery-img">
         {% else %}
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
         {% endif %}
-        
+         
         <div class="insta-overlay">
-          <span class="insta-icon">❤️</span>
+          <span class="insta-icon">📷</span>
         </div>
       </div>
     {% endfor %}
   </div>
-  
-  <a href="https://instagram.com/meninachiquemafra" target="_blank" style="display: inline-block; margin-top: 30px; color: #D4AF37; font-weight: bold; text-decoration: none; border: 1px solid #D4AF37; padding: 10px 20px; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem;">
-    Ver mais no Instagram
+   
+  <a href="#" style="display: inline-block; margin-top: 30px; color: #000; background-color: #D4AF37; font-weight: bold; text-decoration: none; border: 1px solid #D4AF37; padding: 12px 25px; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s;">
+    SEGUIR NO INSTAGRAM
   </a>
 </div>
 
