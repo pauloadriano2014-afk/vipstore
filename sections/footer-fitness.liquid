@@ -1,0 +1,159 @@
+<style>
+  /* --- ESTRUTURA GERAL (Fundo Preto Infinito) --- */
+  .footer-global-wrapper {
+    background-color: #000;
+    color: #fff;
+    width: 100vw; /* Largura total da tela */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border-top: 4px solid #FF1493; /* Linha Rosa */
+    margin-top: 60px;
+    padding: 60px 0 30px;
+    box-sizing: border-box; /* Garante que o padding não estoure a tela */
+  }
+
+  /* Onde o conteúdo fica (Centralizado e limitado a 1200px) */
+  .footer-content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between; /* Espalha as colunas no PC */
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  /* Colunas Individuais */
+  .footer-column {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinha à esquerda no PC */
+  }
+
+  /* Títulos */
+  .footer-column h3 {
+    color: #FF1493;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  /* Textos e Links */
+  .footer-column p {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    max-width: 300px; /* Evita linhas muito longas */
+  }
+
+  .footer-column a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+    display: block;
+  }
+  .footer-column a:hover { color: #FF1493; padding-left: 5px; }
+
+  /* Botão WhatsApp */
+  .btn-whatsapp {
+    background: #25D366;
+    color: #fff !important;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+    margin-top: 10px;
+  }
+  .btn-whatsapp:hover {
+    background: #1ebc57;
+    transform: scale(1.05);
+    padding-left: 25px; /* Anula efeito de link normal */
+  }
+
+  /* Direitos Autorais */
+  .footer-copyright {
+    text-align: center;
+    border-top: 1px solid #222;
+    margin-top: 50px;
+    padding-top: 20px;
+    font-size: 12px;
+    color: #555;
+  }
+  .footer-copyright strong { color: #fff; }
+
+  /* --- MÁGICA PARA CELULAR (Responsividade) --- */
+  @media (max-width: 768px) {
+    .footer-content-container {
+      flex-direction: column; /* Empilha as colunas */
+      align-items: center;    /* Centraliza os blocos */
+      gap: 50px;
+      padding: 0 30px; /* Margem segura para não colar na borda */
+    }
+
+    .footer-column {
+      align-items: center; /* Centraliza itens dentro da coluna */
+      text-align: center;  /* Centraliza o texto */
+      width: 100%;
+    }
+
+    .footer-column p { max-width: 100%; }
+    
+    .footer-column a:hover { padding-left: 0; color: #FF1493; } /* Tira o efeito de mover no celular */
+    
+    .btn-whatsapp { width: 100%; justify-content: center; } /* Botão largura total */
+  }
+</style>
+
+<footer class="footer-global-wrapper">
+  <div class="footer-content-container">
+    
+    <div class="footer-column">
+      <h3>Menina Chique</h3>
+      <p>Moda fitness premium em Mafra - SC.<br>Sua melhor versão começa aqui.</p>
+    </div>
+
+    <div class="footer-column">
+      <h3>Atendimento</h3>
+      <p>Precisa de ajuda com o tamanho?</p>
+      <a href="https://wa.me/5547999999999" target="_blank" class="btn-whatsapp">
+        <span>📱</span> Chamar no WhatsApp
+      </a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Links Rápidos</h3>
+      <a href="/">Início</a>
+      <a href="/collections/all">Todos os Produtos</a>
+      <a href="/search">Rastrear Pedido</a>
+      <a href="/policies/privacy-policy">Política de Privacidade</a>
+    </div>
+
+  </div>
+
+  <div class="footer-copyright">
+    &copy; {{ 'now' | date: "%Y" }} <strong>Menina Chique Mafra</strong>. Todos os direitos reservados.<br>
+    Desenvolvido por Paulo Adriano.
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Rodapé Oficial V2",
+  "settings": [],
+  "presets": [{ "name": "Rodapé Oficial V2" }]
+}
+{% endschema %}

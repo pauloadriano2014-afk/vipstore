@@ -1,0 +1,125 @@
+<style>
+  .benefits-bar {
+    background-color: #000; /* Fundo Preto */
+    color: #fff;
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+    
+    /* --- CÓDIGO NOVO PARA OCUPAR A TELA TODA --- */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    /* ------------------------------------------- */
+  }
+
+  .benefits-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px; /* Mantém o conteúdo centralizado */
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+    justify-content: center; /* Garante alinhamento */
+  }
+  
+  .benefit-icon {
+    font-size: 1.2rem;
+    color: #FF1493; /* Ícone Rosa Neon */
+  }
+  
+  .benefit-text {
+    text-align: left;
+  }
+
+  .benefit-text strong {
+    display: block;
+    color: #FF1493; 
+    text-transform: uppercase;
+    font-size: 0.75rem; /* Levemente menor para caber melhor */
+    letter-spacing: 1px;
+    font-weight: 800;
+  }
+  
+  .benefit-text span {
+    color: #ccc;
+    font-size: 0.7rem;
+    display: block;
+  }
+
+  /* Ajuste Mobile: Slider Horizontal */
+  @media (max-width: 768px) {
+    .benefits-container {
+      display: flex;
+      flex-wrap: nowrap; /* Impede de quebrar linha */
+      overflow-x: auto; /* Permite arrastar para o lado */
+      justify-content: flex-start;
+      padding: 0 20px;
+      -webkit-overflow-scrolling: touch;
+      gap: 30px; /* Espaço maior entre itens no mobile */
+    }
+    
+    .benefit-item {
+      flex: 0 0 auto; /* Impede o item de encolher */
+    }
+    
+    /* Esconde a barra de rolagem feia no celular */
+    .benefits-container::-webkit-scrollbar { display: none; }
+  }
+</style>
+
+<div class="benefits-bar">
+  <div class="benefits-container">
+    
+    <div class="benefit-item">
+      <span class="benefit-icon">🚚</span>
+      <div class="benefit-text">
+        <strong>Frete Grátis</strong>
+        <span>Para compras acima de R$ 299</span>
+      </div>
+    </div>
+
+    <div class="benefit-item">
+      <span class="benefit-icon">💳</span>
+      <div class="benefit-text">
+        <strong>Até 12x no Cartão</strong>
+        <span>Parcela mínima de R$ 50</span>
+      </div>
+    </div>
+
+    <div class="benefit-item">
+      <span class="benefit-icon">🔄</span>
+      <div class="benefit-text">
+        <strong>Primeira Troca Grátis</strong>
+        <span>Até 7 dias após o recebimento</span>
+      </div>
+    </div>
+
+    <div class="benefit-item">
+      <span class="benefit-icon">🛡️</span>
+      <div class="benefit-text">
+        <strong>Compra Segura</strong>
+        <span>Seus dados protegidos</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Barra de Benefícios",
+  "presets": [{ "name": "Barra de Benefícios" }]
+}
+{% endschema %}

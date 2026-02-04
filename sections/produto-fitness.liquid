@@ -1,0 +1,252 @@
+<style>
+  .prod-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    font-family: sans-serif;
+  }
+
+  /* Galeria de Fotos */
+  .prod-gallery {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .prod-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  /* Informações do Produto */
+  .prod-info {
+    flex: 1;
+    min-width: 300px;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+  }
+
+  .prod-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .prod-price {
+    font-size: 24px;
+    color: #FF1493; /* Preço Rosa */
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+
+  .prod-installments {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 25px;
+  }
+
+  /* SELETOR DE TAMANHOS */
+  .variant-wrapper {
+    margin-bottom: 25px;
+  }
+  .variant-label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  .variant-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  /* Esconde a bolinha do rádio padrão */
+  .variant-options input[type="radio"] {
+    display: none;
+  }
+  /* Estilo do botão de tamanho */
+  .variant-options label {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    transition: 0.3s;
+    min-width: 50px;
+    text-align: center;
+  }
+  
+  /* Quando selecionado (Checked) */
+  .variant-options input[type="radio"]:checked + label {
+    background-color: #FF1493;
+    color: #fff;
+    border-color: #FF1493;
+  }
+
+  /* Botões de Ação */
+  .btn-add-cart {
+    background-color: #000;
+    color: #fff;
+    width: 100%;
+    padding: 18px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  .btn-add-cart:hover {
+    background-color: #333;
+  }
+
+  /* Acordeão (Abas) */
+  .accordion {
+    margin-top: 30px;
+    border-top: 1px solid #e1e1e1;
+  }
+  .accordion details {
+    border-bottom: 1px solid #e1e1e1;
+    padding: 15px 0;
+  }
+  .accordion summary {
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .accordion summary::after {
+    content: '+';
+    font-size: 18px;
+    color: #FF1493;
+  }
+  .accordion details[open] summary::after {
+    content: '-';
+  }
+  .accordion-content {
+    margin-top: 10px;
+    color: #555;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+
+  @media (max-width: 768px) {
+    .prod-container { flex-direction: column; gap: 20px; }
+  }
+</style>
+
+<div class="prod-container">
+  <div class="prod-gallery">
+    {% for media in product.media %}
+      <img src="{{ media | img_url: '800x' }}" alt="{{ product.title }}">
+    {% endfor %}
+  </div>
+
+  <div class="prod-info">
+    <h1 class="prod-title">{{ product.title }}</h1>
+    
+    <div class="prod-price">
+      {{ product.price | money }}
+    </div>
+    
+    <div class="prod-installments">
+      em até 12x de {{ product.price | divided_by: 12 | money }} no cartão
+    </div>
+
+    {% form 'product', product %}
+      
+      {% unless product.has_only_default_variant %}
+        <div class="variant-wrapper">
+          <span class="variant-label">Escolha a Opção:</span>
+          <div class="variant-options">
+            {% for variant in product.variants %}
+              <input 
+                type="radio" 
+                id="variant_{{ variant.id }}" 
+                name="id" 
+                value="{{ variant.id }}" 
+                {% if forloop.first %}checked{% endif %}
+                {% unless variant.available %}disabled{% endunless %}
+              >
+              <label for="variant_{{ variant.id }}" {% unless variant.available %}style="opacity:0.5; text-decoration:line-through;"{% endunless %}>
+                {{ variant.title }}
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      {% endunless %}
+      
+      <button type="submit" name="add" class="btn-add-cart">
+        Adicionar ao Carrinho
+      </button>
+      
+      {{ form | payment_button }}
+      
+    {% endform %}
+
+    <div class="accordion">
+      <details open>
+        <summary>Descrição do Produto</summary>
+        <div class="accordion-content">
+          {{ product.description }}
+        </div>
+      </details>
+      
+      {% comment %} 
+        LÓGICA INTELIGENTE:
+        Só mostra a tabela de medidas se o produto NÃO for:
+        Rasteirinha, Acessório, Cinto, Meia, Boné ou Bolsa.
+      {% endcomment %}
+      
+      {% assign show_size_chart = true %}
+      {% for tag in product.tags %}
+        {% assign t = tag | downcase %}
+        {% if t contains 'rasteirinha' or t contains 'acessorio' or t contains 'cinto' or t contains 'meia' or t contains 'bone' or t contains 'bolsa' %}
+          {% assign show_size_chart = false %}
+        {% endif %}
+      {% endfor %}
+
+      {% if show_size_chart %}
+        <details>
+          <summary>Tabela de Medidas</summary>
+          <div class="accordion-content">
+            <p><strong>P (36-38):</strong> Cintura 60-68cm | Quadril 88-96cm</p>
+            <p><strong>M (40-42):</strong> Cintura 69-77cm | Quadril 97-105cm</p>
+            <p><strong>G (44-46):</strong> Cintura 78-86cm | Quadril 106-114cm</p>
+          </div>
+        </details>
+      {% endif %}
+
+      <details>
+        <summary>Envio e Trocas</summary>
+        <div class="accordion-content">
+          Frete Grátis para compras acima de R$ 299. Primeira troca grátis em até 7 dias.
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Produto Fitness Pro",
+  "settings": [],
+  "presets": [{ "name": "Produto Fitness Pro" }]
+}
+{% endschema %}

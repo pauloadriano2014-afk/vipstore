@@ -1,0 +1,141 @@
+<style>
+  .social-proof-section {
+    padding: 60px 0;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .section-title {
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  
+  .section-subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 1rem;
+  }
+  
+  .section-title span {
+    color: #FF1493; /* Rosa Neon */
+    border-bottom: 2px solid #FF1493;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas no PC */
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 1 / 1; /* Quadrado perfeito estilo Insta */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .gallery-item:hover .gallery-img {
+    transform: scale(1.1); /* Zoom suave ao passar o mouse */
+  }
+
+  /* Overlay com ícone do Instagram */
+  .insta-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .gallery-item:hover .insta-overlay {
+    opacity: 1;
+  }
+  
+  .insta-icon {
+    font-size: 2rem;
+    color: #fff;
+  }
+
+  /* Mobile: 2 colunas */
+  @media (max-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  }
+</style>
+
+<div class="social-proof-section">
+  <h2 class="section-title">Quem usa <span>Menina Chique</span></h2>
+  <p class="section-subtitle">Confira nossos looks em clientes reais</p>
+  
+  <div class="gallery-grid">
+    {% for block in section.blocks %}
+      <div class="gallery-item">
+        {% if block.settings.image != blank %}
+          <img src="{{ block.settings.image | img_url: '600x600', crop: 'center' }}" alt="Cliente Menina Chique" class="gallery-img">
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+        
+        <div class="insta-overlay">
+          <span class="insta-icon">❤️</span>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <a href="https://instagram.com/meninachiquemafra" target="_blank" style="display: inline-block; margin-top: 30px; color: #FF1493; font-weight: bold; text-decoration: none; border: 1px solid #FF1493; padding: 10px 20px; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem;">
+    Ver mais no Instagram
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "Galeria Clientes",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Foto Cliente",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Foto" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Galeria Clientes",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

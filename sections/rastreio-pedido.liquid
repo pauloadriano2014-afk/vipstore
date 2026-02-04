@@ -1,0 +1,119 @@
+<style>
+  .tracking-section {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #fff;
+  }
+  
+  .tracking-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .tracking-title {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 2rem;
+    color: #000;
+    margin-bottom: 10px;
+    display: inline-block;
+    border-bottom: 2px solid #FF1493; /* Detalhe Rosa */
+    padding-bottom: 5px;
+  }
+
+  .tracking-subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 0.95rem;
+  }
+
+  .tracking-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Sombra suave chique */
+  }
+
+  .tracking-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  /* Quando clica no campo, a borda fica Rosa */
+  .tracking-input:focus {
+    border-color: #FF1493;
+  }
+
+  .tracking-btn {
+    width: 100%;
+    padding: 16px;
+    background: #FF1493; /* Botão Rosa */
+    color: #fff;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .tracking-btn:hover {
+    background: #D1107A; /* Rosa mais escuro */
+    transform: translateY(-2px);
+  }
+
+  #msg-erro {
+    color: #FF1493;
+    font-weight: bold;
+    margin-top: 15px;
+    display: none;
+    font-size: 0.9rem;
+  }
+</style>
+
+<div class="page-width tracking-section">
+  <div class="tracking-container">
+    <h2 class="tracking-title">Rastrear meu Pedido</h2>
+    <p class="tracking-subtitle">Insira seu código de rastreamento para acompanhar a entrega.</p>
+    
+    <div class="tracking-box">
+      <input type="text" id="tracking-code" class="tracking-input" placeholder="EX: AA123456789BR">
+      <button onclick="trackOrder()" class="tracking-btn">Acompanhar Entrega</button>
+      <div id="msg-erro">Por favor, insira um código de rastreio válido.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function trackOrder() {
+  const code = document.getElementById('tracking-code').value.trim();
+  const erro = document.getElementById('msg-erro');
+  
+  if(code === "") {
+    erro.style.display = "block";
+    return;
+  }
+  
+  erro.style.display = "none";
+  // Redireciona para o rastreio
+  window.open(`https://www.linkcorreios.com.br/${code}`, '_blank');
+}
+</script>
+
+{% schema %}
+{
+  "name": "Rastreio de Pedido",
+  "settings": [],
+  "presets": [{ "name": "Página de Rastreio" }]
+}
+{% endschema %}

@@ -1,0 +1,93 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner_fitness_6rCiWy": {
+      "type": "banner-fitness",
+      "name": "Banner Fitness Hero",
+      "settings": {
+        "image": "shopify://shop_images/308349-2.webp",
+        "title": "Sua Melhor Versão",
+        "button_label": "Comprar Agora",
+        "button_link": ""
+      }
+    },
+    "collections_WBJRrK": {
+      "type": "collections",
+      "disabled": true,
+      "name": "Coleções",
+      "settings": {}
+    },
+    "produtos_destaque_TeAM9e": {
+      "type": "produtos-destaque",
+      "name": "Produtos em Destaque",
+      "settings": {
+        "title": "Destaques da Semana",
+        "collection": "frontpage",
+        "product_limit": 4
+      }
+    },
+    "diferenciais_produto_3rAj6E": {
+      "type": "diferenciais-produto",
+      "name": "Diferenciais Produto",
+      "settings": {}
+    },
+    "main": {
+      "type": "hello-world",
+      "disabled": true,
+      "settings": {}
+    },
+    "galeria_clientes_Fij4e3": {
+      "type": "galeria-clientes",
+      "blocks": {
+        "image_rBt3eY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Cansada_de_treinar_sempre_com_o_mesmo_look_Na_Menina_Chique_voce_encontra_moda_fitness_confort.jpg"
+          }
+        },
+        "image_W8PLDC": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Look_de_verao_pra_brilhar_em_qualquer_ocasiao_Conjunto_maravilhoso_por_R_159_90Bolsa_por_R_69.jpg"
+          }
+        },
+        "image_hhGbCN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Look_disponivel_na_loja_Blusinha_R_59_90_Calcao_R_69_90_Bolsa_R_119_90_Acessorios_R.jpg"
+          }
+        },
+        "image_hBWLVP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Vestido_longo_estampado_confortavel_e_lindo_Disponivel_na_loja_por_R_159_90..jpg"
+          }
+        }
+      },
+      "block_order": [
+        "image_rBt3eY",
+        "image_W8PLDC",
+        "image_hhGbCN",
+        "image_hBWLVP"
+      ],
+      "name": "Galeria Clientes",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner_fitness_6rCiWy",
+    "collections_WBJRrK",
+    "produtos_destaque_TeAM9e",
+    "diferenciais_produto_3rAj6E",
+    "main",
+    "galeria_clientes_Fij4e3"
+  ]
+}

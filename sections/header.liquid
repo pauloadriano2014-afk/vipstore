@@ -1,0 +1,232 @@
+<style>
+  /* --- FUNDO GERAL --- */
+  .site-header-bg {
+    background: #000;
+    width: 100vw; 
+    margin-left: calc(50% - 50vw);
+    border-bottom: 1px solid #333;
+    position: relative;
+    z-index: 10000;
+    box-sizing: border-box;
+  }
+
+  .header-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    /* Isso garante que no celular fique: Menu <-> Logo <-> Carrinho */
+    justify-content: space-between; 
+    position: relative;
+  }
+
+  /* --- 1. BOTÃO MOBILE (AGORA SEPARADO DA LOGO) --- */
+  .mobile-toggle { 
+    display: none; /* Escondido no PC */
+    font-size: 28px; 
+    color: #fff; 
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    z-index: 20;
+    padding: 0; /* Remove padding extra */
+  }
+
+  /* --- 2. LOGO (Horizontal no PC / Centralizada no Mobile) --- */
+  .logo-container {
+    display: flex;
+    align-items: center;
+    z-index: 20;
+  }
+  
+  .logo img { 
+    height: 65px; /* Altura Desktop */
+    width: auto; 
+    display: block; 
+    border: none; 
+    object-fit: contain;
+  }
+  .logo { text-decoration: none; display: block; }
+
+  /* --- 3. MENU DESKTOP (Absoluto no Centro) --- */
+  .desktop-nav {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    gap: 25px;
+    height: 100%;
+    z-index: 10;
+  }
+
+  .nav-item {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 0 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .nav-link:hover { color: #ff007f; }
+  .nav-link span { font-size: 10px; margin-left: 3px; color: #ff007f; }
+
+  /* Dropdown */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    min-width: 200px;
+    border-top: 3px solid #ff007f;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    flex-direction: column;
+    z-index: 10001;
+    text-align: left;
+  }
+  .nav-item:hover .dropdown-menu { display: flex; }
+  .dropdown-menu a {
+    color: #333; padding: 12px 20px; text-decoration: none; border-bottom: 1px solid #eee; font-size: 13px; white-space: nowrap;
+  }
+  .dropdown-menu a:hover { background: #f5f5f5; color: #ff007f; padding-left: 25px; }
+
+  /* --- 4. CARRINHO (Direita) --- */
+  .header-icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    z-index: 20;
+  }
+  
+  .cart-icon-link {
+    color: #fff !important; font-size: 26px !important; text-decoration: none !important;
+    background: none !important; border: none !important; box-shadow: none !important;
+    padding: 10px !important; display: flex; align-items: center; justify-content: center;
+  }
+  .cart-icon-link svg { fill: #fff; width: 26px; height: 26px; }
+
+  /* --- MENU GAVETA MOBILE --- */
+  .mobile-nav {
+    display: none; position: absolute; top: 100%; left: 0; width: 100%; background: #fff; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  }
+  .mobile-nav.active { display: block; }
+  .mobile-link-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #eee;
+  }
+  .mobile-link { color: #000; text-decoration: none; font-weight: bold; text-transform: uppercase; font-size: 14px; }
+  .plus-btn { color: #ff007f; font-weight: bold; font-size: 20px; width: 40px; text-align: center; }
+  .mobile-sub { display: none; background: #f9f9f9; padding-left: 20px; }
+  .mobile-sub.show { display: block; }
+  .mobile-sub a { display: block; padding: 12px; color: #555; text-decoration: none; border-bottom: 1px solid #ddd; }
+
+  /* --- RESPONSIVIDADE (A CORREÇÃO ESTÁ AQUI) --- */
+  @media (max-width: 900px) {
+    .mobile-toggle { display: block; } /* Mostra botão */
+    .desktop-nav { display: none; }    /* Esconde menu PC */
+    
+    .header-wrapper { height: 70px; padding: 0 15px; }
+
+    /* NO MOBILE: LOGO FICA NO CENTRO ABSOLUTO PARA NÃO GRUDAR EM NADA */
+    .logo-container {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: auto;
+      justify-content: center;
+    }
+    
+    .logo img { 
+      height: 40px; /* Altura segura mobile */
+      max-width: 180px; 
+    } 
+  }
+  
+  @media (min-width: 901px) {
+    .mobile-toggle { display: none; }
+    .desktop-nav { display: flex; }
+    .mobile-nav { display: none !important; }
+  }
+</style>
+
+<div class="site-header-bg">
+  <div class="header-wrapper">
+    
+    <button class="mobile-toggle" onclick="document.getElementById('mobileNav').classList.toggle('active')">☰</button>
+    
+    <div class="logo-container">
+      <a href="/" class="logo">
+        {% if section.settings.logo != blank %}
+          <img src="{{ section.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}">
+        {% else %}
+          <span style="color: #fff; font-weight: bold; font-size: 20px;">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <nav class="desktop-nav">
+      {% for link in linklists[section.settings.menu].links %}
+        <div class="nav-item">
+          <a href="{{ link.url }}" class="nav-link">{{ link.title }} {% if link.links != blank %} <span>▾</span> {% endif %}</a>
+          {% if link.links != blank %}
+            <div class="dropdown-menu">
+              {% for child in link.links %}
+                <a href="{{ child.url }}">{{ child.title }}</a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </nav>
+
+    <div class="header-icons">
+      <a href="/cart" class="cart-icon-link">🛒</a>
+    </div>
+
+  </div>
+
+  <div id="mobileNav" class="mobile-nav">
+    {% for link in linklists[section.settings.menu].links %}
+      <div>
+        <div class="mobile-link-row">
+          <a href="{{ link.url }}" class="mobile-link">{{ link.title }}</a>
+          {% if link.links != blank %}
+            <div class="plus-btn" onclick="this.parentElement.nextElementSibling.classList.toggle('show'); this.innerText = this.innerText=='+'?'-':'+'">+</div>
+          {% endif %}
+        </div>
+        {% if link.links != blank %}
+          <div class="mobile-sub">
+            {% for child in link.links %}
+              <a href="{{ child.url }}">{{ child.title }}</a>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header Full Width",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu Principal", "default": "main-menu" },
+    { "type": "image_picker", "id": "logo", "label": "Logo Horizontal" }
+  ]
+}
+{% endschema %}

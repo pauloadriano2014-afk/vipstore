@@ -1,0 +1,181 @@
+{% comment %}
+  CÓDIGO COMPLETO - SEM REDUÇÃO
+  - Grid de Produtos: 4 colunas (Desktop) / Centralizado (Mobile)
+  - Correção do Preço: Uso de !important para impedir que vire link azul
+  - Lógica: Loop com limite de 50 produtos (sem paginação quebrada)
+{% endcomment %}
+
+<div class="page-width collection-container">
+  
+  {% if collection.products_count == 0 %}
+    <div class="empty-warning">
+      <h3>Nenhum produto encontrado.</h3>
+      <p>Verifique se o produto está Ativo, com Estoque e com a Tag correta (ex: 'fitness').</p>
+    </div>
+  {% endif %}
+
+  <h1 class="collection-title">{{ collection.title }}</h1>
+
+  <div class="collection-products">
+    {% for product in collection.products limit: 50 %}
+      <div class="collection-product">
+        <a href="{{ product.url }}" class="product-link">
+          
+          <div class="image-wrapper">
+            {% if product.featured_image %}
+              <img 
+                src="{{ product.featured_image | img_url: '500x' }}" 
+                alt="{{ product.title | escape }}"
+                loading="lazy"
+                width="500"
+                height="{{ 500 | divided_by: product.featured_image.aspect_ratio | ceil }}"
+              >
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+           
+          <div class="collection-product__content">
+            <p class="product-title">{{ product.title | escape }}</p>
+            
+            <div class="price-container">
+              <span class="product-price">{{ product.price | money }}</span>
+            </div>
+
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% stylesheet %}
+  /* --- ESTRUTURA GERAL --- */
+  .collection-container {
+    background-color: #FFFFFF;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #000000;
+  }
+
+  .empty-warning {
+    text-align: center;
+    padding: 40px;
+    border: 1px dashed #FF1493;
+    margin-bottom: 20px;
+    background-color: #fff0f5;
+  }
+
+  .collection-title {
+    text-align: center;
+    color: #000000;
+    text-transform: uppercase;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #FF1493;
+    display: inline-block;
+    padding-bottom: 10px;
+    width: 100%;
+  }
+
+  /* --- GRID DE PRODUTOS --- */
+  .collection-products {
+    display: grid;
+    /* Garante 4 colunas no PC se couber, senão ajusta */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 30px;
+    width: 100%;
+  }
+
+  /* --- CARD DO PRODUTO --- */
+  .collection-product {
+    background-color: #FFFFFF;
+    border: 1px solid #F0F0F0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .collection-product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: #FFC0CB;
+  }
+
+  /* --- LINK (AQUI ESTAVA O PROBLEMA) --- */
+  /* Removemos qualquer estilo padrão de link azul forçado pelo tema */
+  a.product-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: none !important;
+  }
+
+  /* --- IMAGEM --- */
+  .image-wrapper {
+    width: 100%;
+    aspect-ratio: 3 / 4; /* Formato Retrato */
+    overflow: hidden;
+    background-color: #F9F9F9;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .collection-product:hover .image-wrapper img {
+    transform: scale(1.08);
+  }
+
+  /* --- CONTEÚDO (TEXTO E PREÇO) --- */
+  .collection-product__content {
+    padding: 15px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .product-title {
+    font-size: 0.95rem;
+    margin: 0 0 10px 0;
+    color: #333;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 1.4;
+    text-decoration: none !important;
+  }
+
+  .price-container {
+    margin-top: auto; /* Empurra o preço para baixo */
+  }
+
+  /* --- PREÇO BLINDADO --- */
+  /* Usamos !important para garantir que NADA sobrescreva o Rosa */
+  .product-price {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: #FF1493 !important; /* ROSA MENINA CHIQUE */
+    display: block !important;
+    text-decoration: none !important;
+    border: none !important;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:general.collection",
+  "settings": []
+}
+{% endschema %}

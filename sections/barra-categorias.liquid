@@ -1,0 +1,53 @@
+<style>
+  .scroll-menu-container {
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Deslize suave no iPhone */
+  }
+  .scroll-menu-container::-webkit-scrollbar {
+    display: none; /* Esconde a barra de rolagem feia */
+  }
+  .scroll-menu-list {
+    display: inline-flex;
+    padding: 0 15px;
+    gap: 10px;
+  }
+  .scroll-menu-item {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #f8f8f8;
+    color: #333;
+    text-decoration: none;
+    border-radius: 20px; /* Borda redonda estilo pílula */
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #eee;
+  }
+  .scroll-menu-item.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+</style>
+
+<div class="scroll-menu-container">
+  <div class="scroll-menu-list">
+    <a href="/" class="scroll-menu-item active">Início</a>
+    {% for link in linklists[section.settings.menu].links %}
+      <a href="{{ link.url }}" class="scroll-menu-item">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Barra de Categorias",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Escolher Menu", "default": "main-menu" }
+  ],
+  "presets": [{ "name": "Barra de Categorias" }]
+}
+{% endschema %}

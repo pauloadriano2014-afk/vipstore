@@ -1,0 +1,40 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "t:general.footer",
+  "sections": {
+    "whatsapp_flutuante_i3zBRP": {
+      "type": "whatsapp-flutuante",
+      "name": "Botão WhatsApp Flutuante",
+      "settings": {
+        "link_whatsapp": ""
+      }
+    },
+    "footer_fitness_Ar4iYe": {
+      "type": "footer-fitness",
+      "name": "Rodapé Fitness",
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "menu": "",
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": [
+    "whatsapp_flutuante_i3zBRP",
+    "footer_fitness_Ar4iYe",
+    "footer"
+  ]
+}

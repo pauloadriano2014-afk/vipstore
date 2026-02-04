@@ -1,0 +1,67 @@
+<div class="page-width" style="margin: 0; padding: 60px 20px; background-color: #FFFFFF;">
+  {% if section.settings.title != blank %}
+    <h2 style="text-align: center; margin-bottom: 40px; font-size: 2rem; text-transform: uppercase; color: #000; letter-spacing: 1px;">
+      {{ section.settings.title }}
+      <span style="display: block; width: 60px; height: 3px; background-color: #FF1493; margin: 10px auto 0;"></span>
+    </h2>
+  {% endif %}
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+    {% assign collection = collections[section.settings.collection] %}
+    
+    {% for product in collection.products limit: section.settings.product_limit %}
+      <div class="product-card" style="text-align: center; background-color: #FFF; border: 1px solid #EEE; padding: 0; border-radius: 8px; overflow: hidden; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <a href="{{ product.url }}" style="text-decoration: none; color: inherit; display: block; height: 100%;">
+          <div style="aspect-ratio: 3/4; overflow: hidden; position: relative;">
+            <img src="{{ product.featured_image | img_url: '600x800', crop: 'center' }}" alt="{{ product.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <div style="padding: 20px;">
+            <h3 style="font-size: 16px; margin: 0 0 10px; color: #000; text-transform: uppercase;">{{ product.title }}</h3>
+            <p style="font-weight: bold; color: #FF1493; font-size: 1.2rem; margin: 0;">{{ product.price | money }}</p>
+          </div>
+        </a>
+      </div>
+    {% else %}
+      {% for i in (1..4) %}
+        <div style="text-align: center; border: 1px solid #EEE; background: #FAFAFA; padding: 20px; border-radius: 8px; color: #666;">
+          <div style="aspect-ratio: 3/4; background: #EEE; margin-bottom: 10px;"></div>
+          <p style="color: #333;">Produto Exemplo</p>
+          <p style="color: #FF1493;">R$ 0,00</p>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Produtos em Destaque",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da Seção",
+      "default": "Destaques da Semana"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Selecione a Coleção"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "label": "Limite de Produtos",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Produtos em Destaque"
+    }
+  ]
+}
+{% endschema %}
