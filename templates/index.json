@@ -13,9 +13,20 @@
       "type": "banner-fitness",
       "name": "Banner Fitness Hero",
       "settings": {
-        "image": "shopify://shop_images/308349-2.webp",
-        "title": "Sua Melhor Versão",
+        "video": "shopify://files/videos/Design sem nome.mp4",
+        "title": "",
+        "subtitle": "",
         "button_label": "Comprar Agora",
+        "button_link": ""
+      }
+    },
+    "banner_full_width_ar83Ka": {
+      "type": "banner-full-width",
+      "name": "Banner Full Width",
+      "settings": {
+        "video": "shopify://files/videos/Sem nome (Story).mp4",
+        "title": "",
+        "button_label": "COMPRAR AGORA",
         "button_link": ""
       }
     },
@@ -47,36 +58,36 @@
     "galeria_clientes_Fij4e3": {
       "type": "galeria-clientes",
       "blocks": {
-        "image_rBt3eY": {
-          "type": "image",
+        "media_iYAWdd": {
+          "type": "media",
           "settings": {
-            "image": "shopify://shop_images/Cansada_de_treinar_sempre_com_o_mesmo_look_Na_Menina_Chique_voce_encontra_moda_fitness_confort.jpg"
+            "image": "shopify://shop_images/Design_sem_nome_11.png"
           }
         },
-        "image_W8PLDC": {
-          "type": "image",
+        "media_YweKJg": {
+          "type": "media",
           "settings": {
-            "image": "shopify://shop_images/Look_de_verao_pra_brilhar_em_qualquer_ocasiao_Conjunto_maravilhoso_por_R_159_90Bolsa_por_R_69.jpg"
+            "video": "shopify://files/videos/AQNXGUlqxpUX6E8B8Gz2ssHx_xn371mYxa-i0tx3FYPaRokl4RVVrwtT2Iw16UIdXy1sp12e3l29hhgi3wLEQffWT09JmUZ7.mp4"
           }
         },
-        "image_hhGbCN": {
-          "type": "image",
+        "media_RaDhJX": {
+          "type": "media",
           "settings": {
-            "image": "shopify://shop_images/Look_disponivel_na_loja_Blusinha_R_59_90_Calcao_R_69_90_Bolsa_R_119_90_Acessorios_R.jpg"
+            "video": "shopify://files/videos/Design sem nome (1).mp4"
           }
         },
-        "image_hBWLVP": {
-          "type": "image",
+        "media_UCtjBC": {
+          "type": "media",
           "settings": {
-            "image": "shopify://shop_images/Vestido_longo_estampado_confortavel_e_lindo_Disponivel_na_loja_por_R_159_90..jpg"
+            "image": "shopify://shop_images/Design_sem_nome_12.png"
           }
         }
       },
       "block_order": [
-        "image_rBt3eY",
-        "image_W8PLDC",
-        "image_hhGbCN",
-        "image_hBWLVP"
+        "media_iYAWdd",
+        "media_YweKJg",
+        "media_RaDhJX",
+        "media_UCtjBC"
       ],
       "name": "Galeria Clientes",
       "settings": {}
@@ -84,6 +95,7 @@
   },
   "order": [
     "banner_fitness_6rCiWy",
+    "banner_full_width_ar83Ka",
     "collections_WBJRrK",
     "produtos_destaque_TeAM9e",
     "diferenciais_produto_3rAj6E",

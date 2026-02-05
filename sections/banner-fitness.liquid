@@ -1,115 +1,138 @@
+<div class="pc-only-wrapper">
+  
 <style>
-/* --- TRAVA DE SEGURANÇA: SÓ APARECE NO PC --- */
+  /* --- TRAVA DE SEGURANÇA: SÓ APARECE NO PC --- */
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} {
+    .pc-only-wrapper {
       display: none !important;
     }
   }
-  .banner-full-width {
-    width: 100vw;
+
+  /* --- CSS DO BANNER PC (AGORA FULL WIDTH REAL) --- */
+  .banner-fitness-hero {
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    height: 600px; /* Altura fixa para Desktop */
+    width: 100vw; /* Ocupa 100% da largura da janela */
+    margin-left: calc(-50vw + 50%); /* Força a saída do container central */
+    margin-right: calc(-50vw + 50%);
+    height: 800px; /* Altura imponente */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end; /* Texto alinhado à direita */
     overflow: hidden;
+    background-color: #000;
   }
-  .banner-img {
+
+  /* Garante que nada transborde e crie barra de rolagem horizontal */
+  body {
+    overflow-x: hidden;
+  }
+
+  .hero-media {
     position: absolute;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     z-index: 1;
   }
-  .banner-content {
-    position: relative;
-    z-index: 3;
-    text-align: center;
-    color: #fff;
-    max-width: 800px;
-    padding: 20px;
-  }
-  .banner-overlay {
+
+  .hero-overlay {
     position: absolute;
+    top: 0; left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5); /* Escureci um pouco mais para o dourado brilhar */
+    background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
     z-index: 2;
   }
-  
-  /* --- Estilo do Botão VIP (Ouro Dubai) --- */
-  .banner-btn {
-    display: inline-block; 
-    padding: 15px 40px; 
-    
-    /* Ouro Metalizado */
-    background-image: linear-gradient(to right, #AA771C 0%, #B38728 51%, #AA771C 100%);
-    background-color: #B38728; /* Cor de fundo caso o degradê falhe */
-    
-    color: #ffffff; 
-    text-decoration: none; 
-    font-weight: 800; /* Negrito Forte */
-    margin-top: 20px;
-    border-radius: 4px; 
-    text-transform: uppercase;
-    transition: all 0.5s ease; 
-    
-    /* Detalhes de Luxo */
-    border: 1px solid #FCF6BA; /* Borda fina clara */
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); /* Luz dourada em volta */
-    background-size: 200% auto;
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 600px;
+    margin-right: 10%; /* Margem interna para o texto não colar na borda */
+    margin-left: 10%;
+    text-align: left;
   }
 
-  .banner-btn:hover {
-    /* Animação do Ouro ao passar o mouse */
-    background-position: right center;
-    transform: scale(1.05); /* Aumenta levemente */
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); /* Explosão de brilho */
+  .hero-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 20px;
     color: #fff;
-    border-color: #fff;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.5);
   }
   
-  /* Ajuste para celular */
-  @media (max-width: 768px) {
-    .banner-full-width { height: 500px; }
-    .banner-content h1 { font-size: 2.5rem !important; }
+  .hero-subtitle {
+    font-size: 1.5rem;
+    color: #ddd;
+    margin-bottom: 30px;
+    font-weight: 300;
   }
+
+  /* --- Botão VIP PC --- */
+  .hero-btn {
+    display: inline-block;
+    padding: 18px 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    background: #D4AF37;
+    border: 1px solid #D4AF37;
+    text-decoration: none;
+    transition: 0.3s;
+    letter-spacing: 1px;
+  }
+  
+  .hero-btn:hover {
+    background: transparent;
+    color: #D4AF37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+  }
+
 </style>
 
-<div class="banner-full-width">
-  {% if section.settings.image != blank %}
-    <img src="{{ section.settings.image | img_url: '1800x' }}" alt="Banner" class="banner-img">
+<div class="banner-fitness-hero">
+  
+  {% if section.settings.video != blank %}
+    {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, class: 'hero-media' }}
+  {% elsif section.settings.image != blank %}
+    <img src="{{ section.settings.image | img_url: '2000x' }}" alt="Banner VIP" class="hero-media">
   {% else %}
-    <div class="banner-img" style="background:#000;"></div>
+    <div class="hero-media" style="background:#111;"></div>
   {% endif %}
-  
-  <div class="banner-overlay"></div>
-  
-  <div class="banner-content">
-    <h1 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; text-transform: uppercase; background: linear-gradient(45deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-      {{ section.settings.title }}
-    </h1>
-    
-    <a href="{{ section.settings.button_link }}" class="banner-btn">
-      {{ section.settings.button_label }}
-    </a>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    {% if section.settings.title != blank %}
+      <h2 class="hero-title">{{ section.settings.title }}</h2>
+    {% endif %}
+    {% if section.settings.subtitle != blank %}
+      <p class="hero-subtitle">{{ section.settings.subtitle }}</p>
+    {% endif %}
+    {% if section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="hero-btn">{{ section.settings.button_label }}</a>
+    {% endif %}
   </div>
+
+</div>
+
 </div>
 
 {% schema %}
 {
-  "name": "Banner Full Width",
+  "name": "Banner Fitness Hero (PC)",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Imagem" },
-    { "type": "text", "id": "title", "label": "Título", "default": "SUA MELHOR VERSÃO" },
-    { "type": "text", "id": "button_label", "label": "Botão", "default": "COMPRAR AGORA" },
-    { "type": "url", "id": "button_link", "label": "Link" }
+    { "type": "video", "id": "video", "label": "Vídeo Background" },
+    { "type": "image_picker", "id": "image", "label": "Imagem (Reserva)" },
+    { "type": "text", "id": "title", "label": "Título Principal", "default": "ESTILO QUE DEFINE" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtítulo", "default": "Elegância e exclusividade para o seu lifestyle." },
+    { "type": "text", "id": "button_label", "label": "Texto do Botão", "default": "COMPRAR AGORA" },
+    { "type": "url", "id": "button_link", "label": "Link do Botão" }
   ],
-  "presets": [{ "name": "Banner Full Width" }]
+  "presets": [{ "name": "Banner Fitness Hero (PC)" }]
 }
 {% endschema %}
