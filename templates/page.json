@@ -11,10 +11,24 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {}
+    },
+    "contato_vip_zwKBWR": {
+      "type": "contato-vip",
+      "name": "Página de Contato VIP",
+      "settings": {
+        "title": "FALE CONOSCO",
+        "text": "Tem alguma dúvida sobre tamanho, entrega ou pedido? Nosso time de especialistas está pronto para te atender.",
+        "whatsapp": "(41) 99999-9999",
+        "email": "contato@vipstore.com.br",
+        "hours": "Seg a Sex: 09h às 18h",
+        "show_whatsapp_btn": true
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "contato_vip_zwKBWR"
   ]
 }

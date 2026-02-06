@@ -1,8 +1,16 @@
+{% comment %}
+  RASTREIO DE PEDIDO - VIP STORE (DARK MODE)
+  - Fundo: Preto/Dark
+  - Botões e Detalhes: Dourado (#D4AF37)
+  - Texto: Branco
+{% endcomment %}
+
 <style>
+  /* Fundo Geral da Seção */
   .tracking-section {
     padding: 80px 20px;
     text-align: center;
-    background-color: #fff;
+    background-color: transparent; /* Deixa o fundo preto do site aparecer */
   }
   
   .tracking-container {
@@ -10,110 +18,154 @@
     margin: 0 auto;
   }
 
+  /* Título com detalhe Dourado */
   .tracking-title {
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     font-size: 2rem;
-    color: #000;
-    margin-bottom: 10px;
+    color: #FFFFFF; /* Texto Branco */
+    margin-bottom: 15px;
     display: inline-block;
-    border-bottom: 2px solid #D4AF37; /* Detalhe Rosa */
-    padding-bottom: 5px;
+    border-bottom: 2px solid #D4AF37; /* Linha Dourada */
+    padding-bottom: 8px;
+    font-weight: 700;
   }
 
+  /* Subtítulo */
   .tracking-subtitle {
-    color: #666;
+    color: #CCCCCC; /* Cinza claro */
     margin-bottom: 40px;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    font-weight: 300;
   }
 
+  /* Caixa Central (Cartão Dark) */
   .tracking-box {
-    background: #fff;
+    background: #111111; /* Fundo Cinza Quase Preto */
     padding: 40px;
-    border-radius: 8px;
-    border: 1px solid #eee;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Sombra suave chique */
+    border-radius: 6px;
+    border: 1px solid #333; /* Borda sutil */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Sombra Dark */
   }
 
+  /* Campo de Digitação */
   .tracking-input {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
+    background-color: #000000; /* Fundo do input preto */
+    border: 1px solid #444;
     border-radius: 4px;
+    color: #FFFFFF; /* Texto digitado Branco */
     text-transform: uppercase;
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.3s ease;
+    text-align: center;
+    transition: all 0.3s ease;
   }
 
-  /* Quando clica no campo, a borda fica Rosa */
+  .tracking-input::placeholder {
+    color: #666;
+  }
+
+  /* Foco no input (Borda Dourada) */
   .tracking-input:focus {
     border-color: #D4AF37;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
   }
 
+  /* Botão VIP */
   .tracking-btn {
     width: 100%;
-    padding: 16px;
-    background: #D4AF37; /* Botão Rosa */
-    color: #fff;
+    padding: 18px;
+    background: #D4AF37; /* Dourado VIP */
+    color: #000000; /* Texto Preto para contraste */
     border: none;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     border-radius: 4px;
     font-size: 1rem;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
   }
 
   .tracking-btn:hover {
-    background: #D1107A; /* Rosa mais escuro */
+    background: #F2C94C; /* Dourado mais claro/brilhante no hover */
     transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
   }
 
+  /* Mensagem de Erro */
   #msg-erro {
-    color: #D4AF37;
+    color: #ff4d4d; /* Vermelho alerta */
     font-weight: bold;
-    margin-top: 15px;
+    margin-top: 20px;
     display: none;
     font-size: 0.9rem;
+    border: 1px solid #ff4d4d;
+    padding: 10px;
+    border-radius: 4px;
+    background: rgba(255, 77, 77, 0.1);
   }
 </style>
 
 <div class="page-width tracking-section">
   <div class="tracking-container">
-    <h2 class="tracking-title">Rastrear meu Pedido</h2>
-    <p class="tracking-subtitle">Insira seu código de rastreamento para acompanhar a entrega.</p>
+    <h2 class="tracking-title">{{ section.settings.title }}</h2>
+    <p class="tracking-subtitle">{{ section.settings.subtitle }}</p>
     
     <div class="tracking-box">
-      <input type="text" id="tracking-code" class="tracking-input" placeholder="EX: AA123456789BR">
-      <button onclick="trackOrder()" class="tracking-btn">Acompanhar Entrega</button>
-      <div id="msg-erro">Por favor, insira um código de rastreio válido.</div>
+      <input type="text" id="tracking-code" class="tracking-input" placeholder="DIGITE SEU CÓDIGO (EX: AA123BR)">
+      <button onclick="trackOrder()" class="tracking-btn">{{ section.settings.btn_text }}</button>
+      <div id="msg-erro">⚠️ Por favor, insira um código de rastreio válido.</div>
     </div>
   </div>
 </div>
 
 <script>
 function trackOrder() {
-  const code = document.getElementById('tracking-code').value.trim();
+  const codeInput = document.getElementById('tracking-code');
+  const code = codeInput.value.trim();
   const erro = document.getElementById('msg-erro');
   
-  if(code === "") {
+  if(code.length < 5) {
     erro.style.display = "block";
+    codeInput.style.borderColor = "#ff4d4d";
     return;
   }
   
   erro.style.display = "none";
-  // Redireciona para o rastreio
+  codeInput.style.borderColor = "#444";
+  
+  // Abre o LinkCorreios (Melhor para Brasil)
   window.open(`https://www.linkcorreios.com.br/${code}`, '_blank');
 }
 </script>
 
 {% schema %}
 {
-  "name": "Rastreio de Pedido",
-  "settings": [],
-  "presets": [{ "name": "Página de Rastreio" }]
+  "name": "Rastreio de Pedido VIP",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título Principal",
+      "default": "RASTREAR MEU PEDIDO"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtítulo",
+      "default": "Insira seu código de rastreamento abaixo para localizar sua encomenda."
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Texto do Botão",
+      "default": "LOCALIZAR PEDIDO"
+    }
+  ],
+  "presets": [{ "name": "Página de Rastreio VIP" }]
 }
 {% endschema %}

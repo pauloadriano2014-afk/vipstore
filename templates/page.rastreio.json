@@ -11,7 +11,11 @@
   "sections": {
     "main": {
       "type": "rastreio-pedido",
-      "settings": {}
+      "settings": {
+        "title": "RASTREAR MEU PEDIDO",
+        "subtitle": "Insira seu código de rastreamento abaixo para localizar sua encomenda.",
+        "btn_text": "LOCALIZAR PEDIDO"
+      }
     }
   },
   "order": [
